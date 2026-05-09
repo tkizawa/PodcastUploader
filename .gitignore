@@ -1,0 +1,21 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.sln.docstates
+
+# IDE / OS files
+.DS_Store
+Thumbs.db
+
+# Playwright / browser data
+browser_data/
+
+# Environment variables
+.env
+.env.local
