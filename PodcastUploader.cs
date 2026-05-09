@@ -31,14 +31,14 @@ namespace PodcastUploader
         private void InitializeComponent()
         {
             this.Text = "ポッドキャスト自動アップロード (Spotify向け)";
-            this.Size = new System.Drawing.Size(600, 420);
+            this.ClientSize = new System.Drawing.Size(600, 420);
             this.StartPosition = FormStartPosition.CenterScreen;
 
             Label lblFile = new Label() { Text = "音声ファイル:", Left = 10, Top = 15, Width = 80 };
-            txtFilePath = new TextBox() { Left = 100, Top = 12, Width = 380 };
-            btnBrowse = new Button() { Text = "参照...", Left = 490, Top = 10, Width = 80 };
-            btnUpload = new Button() { Text = "アップロード実行", Left = 10, Top = 50, Width = 560, Height = 40 };
-            txtLog = new TextBox() { Left = 10, Top = 100, Width = 560, Height = 260, Multiline = true, ScrollBars = ScrollBars.Vertical, ReadOnly = true };
+            txtFilePath = new TextBox() { Left = 100, Top = 12, Width = 380, Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right };
+            btnBrowse = new Button() { Text = "参照...", Left = 490, Top = 10, Width = 90, Anchor = AnchorStyles.Top | AnchorStyles.Right };
+            btnUpload = new Button() { Text = "アップロード実行", Left = 10, Top = 50, Width = 570, Height = 40, Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right };
+            txtLog = new TextBox() { Left = 10, Top = 100, Width = 570, Height = 300, Multiline = true, ScrollBars = ScrollBars.Vertical, ReadOnly = true, Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right };
 
             btnBrowse.Click += BtnBrowse_Click;
             btnUpload.Click += async (s, e) => await BtnUpload_Click(s, e);
