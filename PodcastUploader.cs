@@ -52,7 +52,7 @@ namespace PodcastUploader
 
         private void LoadConfig()
         {
-            string configPath = "episode.json";
+            string configPath = Path.Combine(AppContext.BaseDirectory, "episode.json");
             if (File.Exists(configPath))
             {
                 try
@@ -102,7 +102,7 @@ namespace PodcastUploader
                 return;
             }
 
-            string configPath = "episode.json";
+            string configPath = Path.Combine(AppContext.BaseDirectory, "episode.json");
             EpisodeInfo? episodeInfo = null;
             
             // Read Description from config if exists
