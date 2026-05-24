@@ -17,10 +17,10 @@ namespace PodcastUploader
 
     public class MainForm : Form
     {
-        private TextBox txtFilePath;
-        private Button btnBrowse;
-        private Button btnUpload;
-        private TextBox txtLog;
+        private TextBox txtFilePath = null!;
+        private Button btnBrowse = null!;
+        private Button btnUpload = null!;
+        private TextBox txtLog = null!;
 
         public MainForm()
         {
