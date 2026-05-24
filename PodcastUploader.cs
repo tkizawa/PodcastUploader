@@ -50,9 +50,27 @@ namespace PodcastUploader
             this.Controls.Add(txtLog);
         }
 
+        private string GetConfigPath()
+        {
+            var currentDirectory = new DirectoryInfo(AppContext.BaseDirectory);
+
+            while (currentDirectory != null)
+            {
+                var projectFilePath = Path.Combine(currentDirectory.FullName, "PodcastUploader.csproj");
+                if (File.Exists(projectFilePath))
+                {
+                    return Path.Combine(currentDirectory.FullName, "episode.json");
+                }
+
+                currentDirectory = currentDirectory.Parent;
+            }
+
+            return Path.Combine(AppContext.BaseDirectory, "episode.json");
+        }
+
         private void LoadConfig()
         {
-            string configPath = Path.Combine(AppContext.BaseDirectory, "episode.json");
+            string configPath = GetConfigPath();
             if (File.Exists(configPath))
             {
                 try
@@ -102,7 +120,7 @@ namespace PodcastUploader
                 return;
             }
 
-            string configPath = Path.Combine(AppContext.BaseDirectory, "episode.json");
+            string configPath = GetConfigPath();
             EpisodeInfo? episodeInfo = null;
             
             // Read Description from config if exists
