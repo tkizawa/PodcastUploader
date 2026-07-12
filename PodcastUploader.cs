@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -218,8 +218,8 @@ namespace PodcastUploader
                 await File.WriteAllBytesAsync(audioFilePath, new byte[1024]);
             }
 
-            Log("「新しいエピソード」ボタンをクリックします...");
-            var newEpisodeBtn = page.Locator("span:has-text('新しいエピソード'), span:has-text('New Episode')").First;
+            Log("「新しいエピソード」または「Create」ボタンをクリックします...");
+            var newEpisodeBtn = page.Locator("span:has-text('新しいエピソード'), span:has-text('New Episode'), span:has-text('Create'), button:has-text('Create'), span:has-text('作成'), button:has-text('作成')").First;
             await newEpisodeBtn.ClickAsync();
 
             Log($"{Path.GetFileName(audioFilePath)} をアップロードします...");
