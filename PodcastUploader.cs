@@ -30,15 +30,19 @@ namespace PodcastUploader
 
         private void InitializeComponent()
         {
-            this.Text = "ポッドキャスト自動アップロード (Spotify向け)";
-            this.ClientSize = new System.Drawing.Size(600, 420);
+            string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "1.0.0.0";
+            this.Text = $"ポッドキャスト自動アップロード (Spotify向け) v{version}";
+            this.ClientSize = new System.Drawing.Size(650, 420);
+            this.MinimumSize = new System.Drawing.Size(650, 460);
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.DoubleBuffered = true;
+            this.ResizeRedraw = true;
 
-            Label lblFile = new Label() { Text = "音声ファイル:", Left = 10, Top = 15, Width = 80 };
-            txtFilePath = new TextBox() { Left = 100, Top = 12, Width = 380, Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right };
-            btnBrowse = new Button() { Text = "参照...", Left = 490, Top = 10, Width = 90, Anchor = AnchorStyles.Top | AnchorStyles.Right };
-            btnUpload = new Button() { Text = "アップロード実行", Left = 10, Top = 50, Width = 570, Height = 40, Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right };
-            txtLog = new TextBox() { Left = 10, Top = 100, Width = 570, Height = 300, Multiline = true, ScrollBars = ScrollBars.Vertical, ReadOnly = true, Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right };
+            Label lblFile = new Label() { Text = "音声ファイル:", Left = 10, Top = 15, AutoSize = true };
+            txtFilePath = new TextBox() { Left = 110, Top = 12, Width = 430, Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right };
+            btnBrowse = new Button() { Text = "参照...", Left = 550, Top = 10, Width = 90, Height = 28, Anchor = AnchorStyles.Top | AnchorStyles.Right };
+            btnUpload = new Button() { Text = "アップロード実行", Left = 10, Top = 50, Width = 630, Height = 40, Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right };
+            txtLog = new TextBox() { Left = 10, Top = 100, Width = 630, Height = 300, Multiline = true, ScrollBars = ScrollBars.Vertical, ReadOnly = true, Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right };
 
             btnBrowse.Click += BtnBrowse_Click;
             btnUpload.Click += async (s, e) => await BtnUpload_Click(s, e);
@@ -143,7 +147,11 @@ namespace PodcastUploader
             episodeInfo.AudioFilePath = audioFilePath;
             try
             {
-                await File.WriteAllTextAsync(configPath, JsonSerializer.Serialize(episodeInfo, new JsonSerializerOptions { WriteIndented = true }));
+                await File.WriteAllTextAsync(configPath, JsonSerializer.Serialize(episodeInfo, new JsonSerializerOptions 
+                { 
+                    WriteIndented = true,
+                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                }));
             }
             catch (Exception ex)
             {
